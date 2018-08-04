@@ -1,0 +1,32 @@
+#!/bin/bash
+
+cd /cpuminer
+
+ENVIRONMENT_CHECK=0
+ALGORITHM=yescrypt
+
+#ENV CHECK
+if [ "${POOL_SERVER_ADDRESS}" = "" ]; then
+  ENVIRONMENT_CHECK=1
+fi
+if [ "${POOL_USER_NAME}" = "" ]; then
+  ENVIRONMENT_CHECK=1
+fi
+if [ "${POOL_WORKER_NAME}" = "" ]; then
+  ENVIRONMENT_CHECK=1
+fi
+if [ "${POOL_WORKER_PASSWORD}" = "" ]; then
+  ENVIRONMENT_CHECK=1
+fi
+if [ "${ENVIRONMENT_CHECK}" == 1 ]; then
+  echo 'No environment variable specified.'
+  exit 1
+fi
+
+# ECHO ENV
+echo "POOL_SERVER_ADDRESS=${POOL_SERVER_ADDRESS}"
+echo "POOL_USER_NAME=${POOL_USER_NAME}"
+echo "POOL_WORKER_NAME=${POOL_WORKER_NAME}"
+echo "POOL_WORKER_PASSWORD=${POOL_WORKER_PASSWORD}"
+
+./minerd -a ${ALGORITHM} -o ${POOL_SERVER_ADDRESS} -u ${POOL_USER_NAME}.${POOL_WORKER_NAME} -p ${POOL_WORKER_PASSWORD}

@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  miner:
+    build: .
+    restart: always
+    environment:
+      - POOL_SERVER_ADDRESS:
+      - POOL_USER_NAME:
+      - POOL_WORKER_NAME:
+      - POOL_WORKER_PASSWORD:
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
