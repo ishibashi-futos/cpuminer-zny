@@ -4,10 +4,10 @@ services:
     build: .
     restart: always
     environment:
-      - POOL_SERVER_ADDRESS:
-      - POOL_USER_NAME:
-      - POOL_WORKER_NAME:
-      - POOL_WORKER_PASSWORD:
+      POOL_SERVER_ADDRESS:
+      POOL_USER_NAME:
+      POOL_WORKER_NAME:
+      POOL_WORKER_PASSWORD:
     logging:
       options:
         max-size: "10m"
