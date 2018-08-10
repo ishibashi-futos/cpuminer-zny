@@ -1,13 +1,14 @@
-FROM ubuntu:18.04
+FROM alpine:3.8
 
-RUN apt-get update -y \
- && apt-get install -y libcurl4-openssl-dev gcc-mingw-w64 automake gcc make git 
- 
-RUN git clone https://github.com/bitzeny/cpuminer.git cpuminer
-WORKDIR /cpuminer
-RUN ./autogen.sh \
+RUN wget -O - "https://github.com/bitzeny/cpuminer/archive/master.zip" | unzip -
+
+WORKDIR /cpuminer-master
+RUN apk --no-cache add curl-dev
+RUN apk --no-cache add --virtual=dependencies libgcc gcc g++ automake make autoconf \
+ && chmod +x ./autogen.sh \
+ && ./autogen.sh \
  && ./configure CFLAGS="-O3 -march=native -funroll-loops -fomit-frame-pointer" \
- && make
-ADD ./docker-entry.sh /
+ && make \
+ && apk del dependenciesADD ./docker-entry.sh /
 RUN chmod +x /docker-entry.sh
 ENTRYPOINT [ "/docker-entry.sh" ]
