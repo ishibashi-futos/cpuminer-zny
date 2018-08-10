@@ -9,6 +9,7 @@ RUN apk --no-cache add --virtual=dependencies libgcc gcc g++ automake make autoc
  && ./autogen.sh \
  && ./configure CFLAGS="-O3 -march=native -funroll-loops -fomit-frame-pointer" \
  && make \
- && apk del dependenciesADD ./docker-entry.sh /
+ && apk del dependencies
+ADD ./docker-entry.sh /
 RUN chmod +x /docker-entry.sh
 ENTRYPOINT [ "/docker-entry.sh" ]
